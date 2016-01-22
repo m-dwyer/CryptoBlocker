@@ -27,3 +27,7 @@ This has been tested fairly thoroughly, and I find that at most ransomware ends 
 Just run the script.  You can easily use this script to deploy the required FSRM install, configuration and needed blocking scripts across many file servers
 
 An event will be logged by FSRM to the Event Viewer (Source = SRMSVC, Event ID = 8215), showing who tried to write a malicious file and where they tried to write it. Use your monitoring system of choice to raise alarms, tickets, etc for this event and respond accordingly.
+
+<b>Disclaimer</b>
+
+This script is provided as is.  I can not be held liable if this does not thwart a ransomware infection, causes your server to spontaneously combust, results in job loss, etc.
