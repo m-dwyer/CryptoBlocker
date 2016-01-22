@@ -1,0 +1,22 @@
+CryptoBlocker
+==============
+
+This is a solution to block users infected with different ransomware variants.
+
+The script will install File Server Resource Manager (FSRM), and set up the relevant configuration.
+
+<b>Script Deployment Steps</b>
+
+1. Checks for network shares
+2. Installs FSRM
+3. Create batch/PowerShell scripts used by FSRM
+4. Creates a File Group in FSRM containing malicious extensions and filenames
+5. Creates a File Screen in FSRM utilising this File Group, with an event notification and command notification
+6. Creates File Screens utilising this template for each drive containing network shares
+
+<b> How it Works</b>
+If the user writes a malicious file (as contained in the file group) to a network share, FSRM will run the deployed script which will add a Deny permission for that user against every share.
+
+This has been tested fairly thoroughly, and I find that at most ransomware ends up encrypting one directory before the user is blocked.
+
+<b>NOTE: This will NOT stop variants which use randomised file extensions, don't drop README files, etc</b>
