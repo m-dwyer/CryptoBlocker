@@ -15,8 +15,13 @@ The script will install File Server Resource Manager (FSRM), and set up the rele
 6. Creates File Screens utilising this template for each drive containing network shares
 
 <b> How it Works</b>
+
 If the user writes a malicious file (as contained in the file group) to a network share, FSRM will run the deployed script which will add a Deny permission for that user against every share.
 
 This has been tested fairly thoroughly, and I find that at most ransomware ends up encrypting one directory before the user is blocked.
 
 <b>NOTE: This will NOT stop variants which use randomised file extensions, don't drop README files, etc</b>
+
+<b>Usage</b>
+
+Just run the script.  You can easily use this script to deploy the required FSRM install, configuration and needed blocking scripts across many file servers
