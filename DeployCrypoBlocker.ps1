@@ -97,7 +97,6 @@ $monitoredExtensions = @(
     "enc_files.txt",
     "*help_decrypt*",
     "help_restore*.*",
-    "how to decrypt*.*",
     "how_to_decrypt*",
     "how_to_recover*",
     "howtodecrypt*",
@@ -109,7 +108,9 @@ $monitoredExtensions = @(
     "vault.key",
     "vault.txt",
     "HOW_TO_RECOVER_FILES.*",
-    "HELP_YOUR_FILES*"
+    "HELP_YOUR_FILES*",
+    "*RECOVER_INSTRUCTIONS*",
+    "*.micro"
 )
 
 $scriptFilename = "C:\FSRMScripts\KillUserSession.ps1"
