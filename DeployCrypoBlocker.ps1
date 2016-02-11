@@ -97,6 +97,7 @@ $monitoredExtensions = @(
     "enc_files.txt",
     "*help_decrypt*",
     "help_restore*.*",
+    "how to decrypt*",
     "how_to_decrypt*",
     "how_to_recover*",
     "howtodecrypt*",
