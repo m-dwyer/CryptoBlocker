@@ -111,7 +111,8 @@ $monitoredExtensions = @(
     "HOW_TO_RECOVER_FILES.*",
     "HELP_YOUR_FILES*",
     "*RECOVER_INSTRUCTIONS*",
-    "*.micro"
+    "*.micro",
+    "*.locky"
 )
 
 $scriptFilename = "C:\FSRMScripts\KillUserSession.ps1"
