@@ -85,35 +85,7 @@ $fileGroupName = "CryptoBlockerGroup"
 $fileTemplateName = "CryptoBlockerTemplate"
 $fileScreenName = "CryptoBlockerScreen"
 
-$monitoredExtensions = @(
-    "*.cryptotorlocker*",
-    "*.encrypted",
-    "*.frtrss",
-    "*.vault",
-    "*want your files back.*",
-    "confirmation.key",
-    "cryptolocker.*",
-    "*decrypt_instruct*",
-    "enc_files.txt",
-    "*help_decrypt*",
-    "help_restore*.*",
-    "how to decrypt*",
-    "how_to_decrypt*",
-    "how_to_recover*",
-    "howtodecrypt*",
-    "install_tor*.*",
-    "last_chance.txt",
-    "recovery_file.txt",
-    "recovery_key.txt",
-    "vault.hta",
-    "vault.key",
-    "vault.txt",
-    "HOW_TO_RECOVER_FILES.*",
-    "HELP_YOUR_FILES*",
-    "*RECOVER_INSTRUCTIONS*",
-    "*.micro",
-    "*.locky"
-)
+$monitoredExtensions = @((Invoke-WebRequest -Uri "https://fsrm.experiant.ca/api/v1/get").content | convertfrom-json | % {$_.filters})
 
 $scriptFilename = "C:\FSRMScripts\KillUserSession.ps1"
 $batchFilename = "C:\FSRMScripts\KillUserSession.bat"
