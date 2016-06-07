@@ -85,7 +85,9 @@ $fileGroupName = "CryptoBlockerGroup"
 $fileTemplateName = "CryptoBlockerTemplate"
 $fileScreenName = "CryptoBlockerScreen"
 
-$monitoredExtensions = @((Invoke-WebRequest -Uri "https://fsrm.experiant.ca/api/v1/get").content | convertfrom-json | % {$_.filters})
+$webClient = New-Object System.Net.WebClient
+$json = $webClient.DownloadString("https://fsrm.experiant.ca/api/v1/get")
+$monitoredExtensions = @($json | ConvertFrom-Json | % { $_.filters })
 
 $scriptFilename = "C:\FSRMScripts\KillUserSession.ps1"
 $batchFilename = "C:\FSRMScripts\KillUserSession.bat"
