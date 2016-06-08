@@ -31,7 +31,12 @@ Function PurgeNonAdminDirectoryPermissions([string] $directory)
     Set-Acl -AclObject $acl -Path $directory
 }
 
-
+function ConvertFrom-Json20([Object] $obj)
+{
+    Add-Type -AssemblyName System.Web.Extensions
+    $serializer = New-Object System.Web.Script.Serialization.JavaScriptSerializer
+    return ,$serializer.DeserializeObject($obj)
+}
 ################################ Functions ################################
 
 # Add to all drives
@@ -86,8 +91,8 @@ $fileTemplateName = "CryptoBlockerTemplate"
 $fileScreenName = "CryptoBlockerScreen"
 
 $webClient = New-Object System.Net.WebClient
-$json = $webClient.DownloadString("https://fsrm.experiant.ca/api/v1/get")
-$monitoredExtensions = @($json | ConvertFrom-Json | % { $_.filters })
+$jsonStr = $webClient.DownloadString("https://fsrm.experiant.ca/api/v1/get")
+$monitoredExtensions = @(ConvertFrom-Json20($jsonStr) | % { $_.filters })
 
 $scriptFilename = "C:\FSRMScripts\KillUserSession.ps1"
 $batchFilename = "C:\FSRMScripts\KillUserSession.bat"
