@@ -99,6 +99,18 @@ $batchFilename = "C:\FSRMScripts\KillUserSession.bat"
 $eventConfFilename = "$env:Temp\cryptoblocker-eventnotify.txt"
 $cmdConfFilename = "$env:Temp\cryptoblocker-cmdnotify.txt"
 
+$exclusions = @(`
+    $MyInvocation.MyCommand.Name,
+    $($MyInvocation.MyCommand.Name + ".*"),
+    "cryptoblocker-eventnotify.txt",`
+    "cryptoblocker-cmdnotify.txt"`
+    )
+
+$excludedPaths = @(`
+	"C:\Windows",`
+	"C:\ProgramData\Kaspersky Lab"`
+	)
+
 $scriptConf = @'
 param([string] $DomainUser)
 
@@ -209,6 +221,7 @@ $cmdConf | Out-File $cmdConfFilename
 Write-Host "Adding/replacing File Group [$fileGroupName] with monitored file [$($monitoredExtensions -Join ",")].."
 &filescrn.exe filegroup Delete /Filegroup:$fileGroupName /Quiet
 &filescrn.exe Filegroup Add "/Filegroup:$fileGroupName" "/Members:$($monitoredExtensions -Join "|")"
+&filescrn.exe Filegroup Modify "/Filegroup:$fileGroupName" "/Nonmembers:$($exclusions -Join "|")"
 
 Write-Host "Adding/replacing File Screen Template [$fileTemplateName] with Event Notification [$eventConfFilename] and Command Notification [$cmdConfFilename].."
 &filescrn.exe Template Delete /Template:$fileTemplateName /Quiet
@@ -219,6 +232,12 @@ $drivesContainingShares | % {
     Write-Host "`tAdding/replacing File Screen for [$_] with Source Template [$fileTemplateName].."
     &filescrn.exe Screen Delete "/Path:$_" /Quiet
     &filescrn.exe Screen Add "/Path:$_" "/SourceTemplate:$fileTemplateName"
+}
+
+Write-Host "Adding/replacing File Screen Exceptions..."
+$excludedPaths | % {
+	&filescrn.exe Exception Delete /Path:"$_" /Quiet
+	&filescrn.exe Exception Add /Path:"$_" /Add-Filegroup:$fileGroupName
 }
 
 Write-Host "Removing temporary FSRM Event Viewer configuration file [$eventConfFilename].."
